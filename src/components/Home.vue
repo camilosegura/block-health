@@ -4,10 +4,20 @@
     <form>
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" v-model="name" aria-describedby="nameHelp" placeholder="Enter name">
+        <input type="text" class="form-control" id="name" v-model="name" aria-describedby="nameHelp" placeholder="Ingrese nombre">
         <small id="nameHelp" class="form-text text-muted">Your name in the blockchain.</small>
       </div>
-      <button type="button" class="btn btn-primary" @click="setName">Submit</button>
+      <div class="form-group">
+        <label for="last-name">Apellido</label>
+        <input type="text" class="form-control" id="last-name" v-model="lastName" aria-describedby="lastnameHelp" placeholder="Ingrese Apellido">
+        <small id="lastnameeHelp" class="form-text text-muted">Your last name in the blockchain.</small>
+      </div>
+      <div class="form-group">
+        <label for="id">Identificación</label>
+        <input type="text" class="form-control" id="id" v-model="id" aria-describedby="idHelp" placeholder="Ingrese Identificación">
+        <small id="idHelp" class="form-text text-muted">Your ID in the blockchain.</small>
+      </div>
+      <button type="button" class="btn btn-primary" @click="setAll">Submit</button>
     </form>
   </div>
 </template>
@@ -20,7 +30,9 @@ export default {
   data () {
     return {
       msg: 'A simple dApp using VueJS and Solidity for the Account contract',
-      name: ''
+      name: '',
+      lastName: '',
+      id: ''
     }
   },
   beforeCreate () {
@@ -35,7 +47,25 @@ export default {
     },
     setName() {
       Account.setName(this.name)
+    },
+    getLastName () {
+      Account.getLastName().then(lastName => { this.lastName = lastName }).catch(console.error)
+    },
+    setLastName() {
+      Account.setLastName(this.lastName)
+    },
+    getID () {
+      Account.getID().then(id => { this.id = id }).catch(console.error)
+    },
+    setID() {
+      Account.setID(this.id)
+    },
+    setAll() {
+      this.setName();
+      this.setLastName();
+      this.setID();
     }
+
   }
 }
 </script>

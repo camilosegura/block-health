@@ -41,6 +41,74 @@ const Account = {
             .catch(console.error)
         })
     });
+  },
+
+  getLastName: () => {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      self.instance
+        .then(account => { return account.lastName(); })
+        .then(lastName => { resolve(lastName) })
+        .catch(error => { reject(error) })
+    });
+  },
+
+  setLastName: (lastName) => {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      window.web3.eth.getCoinbase()
+        .then((coinbase, error) => {
+          if (error) {
+            reject(error)
+          }
+          self.instance
+            .then(account => { return account.setLastName(lastName, {from: coinbase}); })
+            .then(console.log)
+            .catch(console.error)
+        })
+    });
+  },
+
+  getID: () => {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      self.instance
+        .then(account => { return account.id(); })
+        .then(id => { resolve(id) })
+        .catch(error => { reject(error) })
+    });
+  },
+
+  setID: (id) => {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      window.web3.eth.getCoinbase()
+        .then((coinbase, error) => {
+          if (error) {
+            reject(error)
+          }
+          self.instance
+            .then(account => { return account.setID(id, {from: coinbase}); })
+            .then(console.log)
+            .catch(console.error)
+        })
+    });
+  },
+
+  setAll: (name, lastName, id) => {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      window.web3.eth.getCoinbase()
+        .then((coinbase, error) => {
+          if (error) {
+            reject(error)
+          }
+          self.instance
+            .then(account => { return account.setAll(name, lastName, id, {from: coinbase}); })
+            .then(console.log)
+            .catch(console.error)
+        })
+    });
   }
 };
 
